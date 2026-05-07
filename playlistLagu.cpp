@@ -106,6 +106,7 @@ void cariLagu(){
 }
 
 void urutLagu(){
+    cout << "aaaa";
 }
 
 void updateLagu(){
