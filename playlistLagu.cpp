@@ -52,6 +52,44 @@ void tambahLagu(){
 }
 
 void tampilPlaylist(){
+    sytem ("cls");
+    FILE *fptr;
+    char namaFile[30];
+
+    cout << "TAMPILKAN PLAYLIST" << endl;
+    cout << "===============================" << endl;
+    cout << "Data yang akan ditampilkan dari file: "; cin >> namaFile;
+
+    fptr = fopen(namaFile, "r");
+
+    if (fptr == NULL){
+        cout << "File tidak ditemukan" << endl;
+        return;
+    }
+
+    n = 0;
+    while (fscanf(fptr, "%[^|]|%[^|]|%[^|]|%d|%f\n",
+        data[n]. judul, data[n].artis, data[n].genre, &data[n].tahun, &data[n].rating) !=EOF) {
+        n++;
+    } 
+    fclose(fptr);
+    
+    if (n == 0) {
+        cout << "Playlist kosong!" << endl;
+        return; 
+    }
+
+    for (int i = 0; i < n; i++){
+        cout << "\nData ke-" << i + 1 << endl;
+            cout << "===============================" << endl;
+            cout << "Judul Lagu : " << data[i].judul << endl;
+            cout << "Artis      : " << data[i].artis << endl;
+            cout << "Genre      : " << data[i].genre << endl;
+            cout << "Tahun Rilis: " << data[i].tahun << endl;
+            cout << "Rating     : " << data[i].rating << endl;
+            cout << "===============================" << endl;
+    }
+    cout << "Total Lagu: " << n << endl;
 }
 
 void cariLagu(){
