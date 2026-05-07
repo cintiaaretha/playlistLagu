@@ -174,32 +174,33 @@ void urutLagu(){
     cout << "2. Rating (Tertinggi -> Terendah)" << endl;
     cout << "Pilih: "; cin >> pilih;
 
-   if (pilih == 1) {
+    if (pilih == 1) {
+        for (int i = 0; i < n - 1; i ++;) {
+            for (int j = 0; j < n - i - 1; j++) {
+                if (strcmp(data[j].judul, data[j+1].judul) > 0){
+                    Lagu temp = data[j];
+                    data[j] = data[j+1];
+                    data[j+1] = temp;
+                }
+            }
+        } 
+        cout << "\nData diurutkan: Judul A -> Z " << endl;
+    } else if (pilih == 2){
         for (int i = 0; i < n - 1; i++) {
-            for (int j = 0; j < n - i - 1; j++) {
-                if (strcmp(data[j].judul, data[j+1].judul) > 0) {
-                    Lagu temp = data[j];
-                    data[j] = data[j+1];
-                    data[j+1] = temp;
+            for (int j = 0; j < n - i - 1; j++){
+                if (data[j] = 0; j < n - i - 1; j++){
+                    if (data[j].rating < data[j+1].rating){
+                        Lagu temp = data[j];
+                        data[j] = data[j+1];
+                        data[j+1] = temp;
+                    }
                 }
             }
+            cout << "Data diurutkan: Rating Tertinggi -> Terendah " << endl;
+        } else {
+            cout << "Pilihan tidak valid!" << endl;
+            return;
         }
-        cout << "\nData diurutkan: Judul A -> Z" << endl;
-    } else if (pilih == 2) {
-         for (int i = 0; i < n - 1; i++) {
-            for (int j = 0; j < n - i - 1; j++) {
-                if (data[j].rating < data[j+1].rating) {
-                    Lagu temp = data[j];
-                    data[j] = data[j+1];
-                    data[j+1] = temp;
-                }
-            }
-        }
-        cout << "\nData diurutkan: Rating Tertinggi -> Terendah" << endl;
-    } else {
-        cout << "Pilihan tidak valid!" << endl;
-        return;
-    }
 
     for (int i = 0; i < n; i++) {
         cout << "\nData ke-" << i + 1 << endl;
