@@ -241,6 +241,71 @@ void updateLagu(){
 }
 
 void hapusLagu(){
+    system("cls");
+    FILE *fptr;
+    char namaFile[30];
+    char cari[100];
+    bool ketemu = false;
+
+    cout << "HAPUS LAGU" << endl;
+    cout << "===============================" << endl;
+    cout << "Data yang akan dihapus dari file: "; cin >> namaFile;
+
+    fptr = fopen(namaFile, "r");
+
+    if (fptr == NULL) {
+        cout << "File tidak ditemukan!" << endl;
+        return;
+    }
+
+    n = 0;
+    while (fscanf(fptr, "%[^|]|%[^|]|%[^|]|%d|%f\n",
+        data[n].judul, data[n].artis, data[n].genre, &data[n].tahun, &data[n].rating) != EOF) {
+             n++;
+        }
+        fclose(fptr);
+
+        if (n == 0) {
+            cout << "Playlist kosong!" << endl;
+            return;
+        }
+
+        cin.ignore();
+        cout << "Judul lagu yang ingin dihapus: "; cin.getline(cari, 100);
+
+    for (int i = 0; i < n; i++) {
+         if (strcmp(data[i].judul, cari) == 0) {
+        cout << "\nData ditemukan" << endl;
+        cout << "===============================" << endl;
+        cout << "Judul Lagu : " << data[i].judul << endl;
+        cout << "Artis      : " << data[i].artis << endl;
+        cout << "Genre      : " << data[i].genre << endl;
+        cout << "Tahun Rilis: " << data[i].tahun << endl;
+        cout << "Rating     : " << data[i].rating << endl;
+        cout << "===============================" << endl;
+
+        for (int j = i; j < n - 1; j++) {
+                data[j] = data[j+1];
+            }
+            n--;
+            
+            fptr = fopen(namaFile, "w");
+            for (int j = 0; j < n; j++) {
+                fprintf(fptr, "%s|%s|%s|%d|%.2f\n",
+                    data[j].judul, data[j].artis, data[j].genre, data[j].tahun, data[j].rating);
+            }
+            fclose(fptr);
+            cout << "Lagu berhasil dihapus!" << endl;
+
+            ketemu = true;
+            break;
+        }
+    }
+    if (ketemu){
+    } else {
+		cout << "===============================" << endl;
+        cout << "Data tidak ditemukan" << endl;
+    }
 }
 
 int main() {
