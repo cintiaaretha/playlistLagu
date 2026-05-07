@@ -144,7 +144,81 @@ void cariLagu(){
 }
 
 void urutLagu(){
-    cout << "aaaa";
+    system("cls");
+    FILE *fptr;
+    char namaFile[30];
+
+    cout << "URUTKAN LAGU" << endl;
+    cout << "===============================" << endl;
+    cout << "Data yang akan diurutkan dari file: "; cin >> namaFile;
+
+    fptr = fopen(namaFile, "r");
+    if (fptr == NULL) {
+        cout << "File tidak bisa ditemukan!" << endl;
+        return;
+    }
+
+    n = 0;
+    while (fscanf(fptr, "%[^|]|%[^|]|%[^|]|%d|%f\n", data[n].judul, data[n].artis, data[n].genre, &data[n].tahun, &data[n].rating) != EOF) {
+        n++;
+    }
+    fclose(fptr);
+
+    if (n == 0) {
+        cout << "Playlist kosong!" << endl;
+        return;
+    }
+
+    int pilih;
+    cout << "\n1. Judul (A -> Z)" << endl;
+    cout << "2. Rating (Tertinggi -> Terendah)" << endl;
+    cout << "Pilih: "; cin >> pilih;
+
+   if (pilih == 1) {
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+                if (strcmp(data[j].judul, data[j+1].judul) > 0) {
+                    Lagu temp = data[j];
+                    data[j] = data[j+1];
+                    data[j+1] = temp;
+                }
+            }
+        }
+        cout << "\nData diurutkan: Judul A -> Z" << endl;
+    } else if (pilih == 2) {
+         for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+                if (data[j].rating < data[j+1].rating) {
+                    Lagu temp = data[j];
+                    data[j] = data[j+1];
+                    data[j+1] = temp;
+                }
+            }
+        }
+        cout << "\nData diurutkan: Rating Tertinggi -> Terendah" << endl;
+    } else {
+        cout << "Pilihan tidak valid!" << endl;
+        return;
+    }
+
+    for (int i = 0; i < n; i++) {
+        cout << "\nData ke-" << i + 1 << endl;
+        cout << "===============================" << endl;
+        cout << "Judul Lagu : " << data[i].judul << endl;
+        cout << "Artis      : " << data[i].artis << endl;
+        cout << "Genre      : " << data[i].genre << endl;
+        cout << "Tahun Rilis: " << data[i].tahun << endl;
+        cout << "Rating     : " << data[i].rating << endl;
+        cout << "===============================" << endl;
+    }
+
+    fptr = fopen(namaFile, "w");
+    for (int i = 0; i < n; i++) {
+        fprintf(fptr, "%s|%s|%s|%d|%.2f\n",
+            data[i].judul, data[i].artis, data[i].genre, data[i].tahun, data[i].rating);
+    }
+    fclose(fptr);
+    cout << "Data berhasil disimpan ke file." << endl;
 }
 
 void updateLagu(){
