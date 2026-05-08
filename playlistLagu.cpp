@@ -52,7 +52,7 @@ void tambahLagu(){
 }
 
 void tampilPlaylist(){
-    sytem ("cls");
+    system ("cls");
     FILE *fptr;
     char namaFile[30];
 
@@ -73,10 +73,10 @@ void tampilPlaylist(){
         n++;
     } 
     fclose(fptr);
-    
+
     if (n == 0) {
         cout << "Playlist kosong!" << endl;
-        return; 
+        return;
     }
 
     for (int i = 0; i < n; i++){
