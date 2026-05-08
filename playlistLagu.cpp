@@ -179,16 +179,16 @@ void urutLagu(){
     cin >> pilih;
 
     if (pilih == 1) {
-        for (int i = 0; i < n - 1; i ++;) {
+        for (int i = 0; i < n - 1; i++;) {
             for (int j = 0; j < n - i - 1; j++) {
-                if (strcmp(data[j].judul, data[j+1].judul) > 0){
-                    Lagu temp = data[j];
+                if (strcmp(data[j].judul, data[j+1].judul) > 0) {
+                    Lagu temp = data [j];
                     data[j] = data[j+1];
                     data[j+1] = temp;
                 }
             }
-        } 
-        cout << "\nData diurutkan: Judul A -> Z " << endl;
+        }
+        cout << "\nData diurutkan: Judul A -> Z" << endl;
     } else if (pilih == 2){
         for (int i = 0; i < n - 1; i++) {
             for (int j = 0; j < n - i - 1; j++){
@@ -253,8 +253,8 @@ void hapusLagu(){
     bool ketemu = false;
 
     cout << "HAPUS LAGU" << endl;
-    cout << "===============================" << endl;
-    cout << "Data yang akan dihapus dari file: "; 
+    cout << "===============================" << endl; 
+    cout << "Data yang akan dihapus dari file: ";
     cin >> namaFile;
 
     fptr = fopen(namaFile, "r");
@@ -266,7 +266,7 @@ void hapusLagu(){
     n = 0;
     while (fscanf(fptr, "%[^|]|%[^|]|%[^|]|%d|%f\n",
         data[n].judul, data[n].artis, data[n].genre, &data[n].tahun, &data[n].rating) != EOF) {
-             n++;
+        n++;
         }
         fclose(fptr);
 
