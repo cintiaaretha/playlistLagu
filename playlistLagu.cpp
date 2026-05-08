@@ -256,7 +256,6 @@ void hapusLagu(){
 
     if (fptr == NULL) {
         cout << "File tidak ditemukan!" << endl;
-        return;
     }
 
     n = 0;
