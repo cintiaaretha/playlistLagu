@@ -58,7 +58,8 @@ void tampilPlaylist(){
 
     cout << "TAMPILKAN PLAYLIST" << endl;
     cout << "===============================" << endl;
-    cout << "Data yang akan ditampilkan dari file: "; cin >> namaFile;
+    cout << "Data yang akan ditampilkan dari file: ";
+    cin >> namaFile;
 
     fptr = fopen(namaFile, "r");
 
@@ -150,16 +151,18 @@ void urutLagu(){
 
     cout << "URUTKAN LAGU" << endl;
     cout << "===============================" << endl;
-    cout << "Data yang akan diurutkan dari file: "; cin >> namaFile;
+    cout << "Data yang akan diurutkan dari file: "; 
+    cin >> namaFile;
 
     fptr = fopen(namaFile, "r");
     if (fptr == NULL) {
         cout << "File tidak bisa ditemukan!" << endl;
         return;
     }
-
+    
     n = 0;
-    while (fscanf(fptr, "%[^|]|%[^|]|%[^|]|%d|%f\n", data[n].judul, data[n].artis, data[n].genre, &data[n].tahun, &data[n].rating) != EOF) {
+    while (fscanf(fptr, "%[^|]|%[^|]|%[^|]|%d|%f\n",
+        data[n].judul, data[n].artis, data[n].genre, &data[n].tahun, &data[n].rating) != EOF) {
         n++;
     }
     fclose(fptr);
@@ -172,7 +175,8 @@ void urutLagu(){
     int pilih;
     cout << "\n1. Judul (A -> Z)" << endl;
     cout << "2. Rating (Tertinggi -> Terendah)" << endl;
-    cout << "Pilih: "; cin >> pilih;
+    cout << "Pilih: "; 
+    cin >> pilih;
 
     if (pilih == 1) {
         for (int i = 0; i < n - 1; i ++;) {
@@ -250,7 +254,8 @@ void hapusLagu(){
 
     cout << "HAPUS LAGU" << endl;
     cout << "===============================" << endl;
-    cout << "Data yang akan dihapus dari file: "; cin >> namaFile;
+    cout << "Data yang akan dihapus dari file: "; 
+    cin >> namaFile;
 
     fptr = fopen(namaFile, "r");
 
