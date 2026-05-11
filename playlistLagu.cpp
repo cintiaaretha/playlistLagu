@@ -52,13 +52,14 @@ void tambahLagu(){
 }
 
 void tampilPlaylist(){
-    sytem ("cls");
+    system ("cls");
     FILE *fptr;
     char namaFile[30];
 
     cout << "TAMPILKAN PLAYLIST" << endl;
     cout << "===============================" << endl;
-    cout << "Data yang akan ditampilkan dari file: "; cin >> namaFile;
+    cout << "Data yang akan ditampilkan dari file: ";
+    cin >> namaFile;
 
     fptr = fopen(namaFile, "r");
 
@@ -73,10 +74,10 @@ void tampilPlaylist(){
         n++;
     } 
     fclose(fptr);
-    
+
     if (n == 0) {
         cout << "Playlist kosong!" << endl;
-        return; 
+        return;
     }
 
     for (int i = 0; i < n; i++){
@@ -112,7 +113,7 @@ void cariLagu(){
 
     n = 0;
 
-    while (fscanf(fptr, "%[^|]|%[^|]|%[^|]|%d|%f\n, 
+    while (fscanf(fptr, "%[^|]|%[^|]|%[^|]|%d|%f\n", 
         data[n].judul, data[n].artis, data[n].genre, &data[n].tahun, &data[n].rating)!=EOF) {
         n++;
     }
@@ -150,16 +151,18 @@ void urutLagu(){
 
     cout << "URUTKAN LAGU" << endl;
     cout << "===============================" << endl;
-    cout << "Data yang akan diurutkan dari file: "; cin >> namaFile;
+    cout << "Data yang akan diurutkan dari file: "; 
+    cin >> namaFile;
 
     fptr = fopen(namaFile, "r");
     if (fptr == NULL) {
         cout << "File tidak bisa ditemukan!" << endl;
         return;
     }
-
+    
     n = 0;
-    while (fscanf(fptr, "%[^|]|%[^|]|%[^|]|%d|%f\n", 
+ 
+    while (fscanf(fptr, "%[^|]|%[^|]|%[^|]|%d|%f\n",
         data[n].judul, data[n].artis, data[n].genre, &data[n].tahun, &data[n].rating) != EOF) {
         n++;
     }
@@ -173,19 +176,20 @@ void urutLagu(){
     int pilih;
     cout << "\n1. Judul (A -> Z)" << endl;
     cout << "2. Rating (Tertinggi -> Terendah)" << endl;
-    cout << "Pilih: "; cin >> pilih;
+    cout << "Pilih: "; 
+    cin >> pilih;
 
     if (pilih == 1) {
-        for (int i = 0; i < n - 1; i ++;) {
+        for (int i = 0; i < n - 1; i++;) {
             for (int j = 0; j < n - i - 1; j++) {
-                if (strcmp(data[j].judul, data[j+1].judul) > 0){
-                    Lagu temp = data[j];
+                if (strcmp(data[j].judul, data[j+1].judul) > 0) {
+                    Lagu temp = data [j];
                     data[j] = data[j+1];
                     data[j+1] = temp;
                 }
             }
-        } 
-        cout << "\nData diurutkan: Judul A -> Z " << endl;
+        }
+        cout << "\nData diurutkan: Judul A -> Z" << endl;
     } else if (pilih == 2){
         for (int i = 0; i < n - 1; i++) {
             for (int j = 0; j < n - i - 1; j++){
@@ -250,20 +254,20 @@ void hapusLagu(){
     bool ketemu = false;
 
     cout << "HAPUS LAGU" << endl;
-    cout << "===============================" << endl;
-    cout << "Data yang akan dihapus dari file: "; cin >> namaFile;
+    cout << "===============================" << endl; 
+    cout << "Data yang akan dihapus dari file: ";
+    cin >> namaFile;
 
     fptr = fopen(namaFile, "r");
 
     if (fptr == NULL) {
         cout << "File tidak ditemukan!" << endl;
-        return;
     }
 
     n = 0;
     while (fscanf(fptr, "%[^|]|%[^|]|%[^|]|%d|%f\n",
         data[n].judul, data[n].artis, data[n].genre, &data[n].tahun, &data[n].rating) != EOF) {
-             n++;
+        n++;
         }
         fclose(fptr);
 
