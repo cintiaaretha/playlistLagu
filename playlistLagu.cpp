@@ -112,7 +112,7 @@ void cariLagu(){
 
     n = 0;
 
-    while (fscanf(fptr, "%[^|]%[^|]%[^|]|%d|%f\n", 
+    while (fscanf(fptr, "%[^|]|%[^|]|%[^|]|%d|%f\n, 
         data[n].judul, data[n].artis, data[n].genre, &data[n].tahun, &data[n].rating)!=EOF) {
         n++;
     }
@@ -159,7 +159,8 @@ void urutLagu(){
     }
 
     n = 0;
-    while (fscanf(fptr, "%[^|]|%[^|]|%[^|]|%d|%f\n", data[n].judul, data[n].artis, data[n].genre, &data[n].tahun, &data[n].rating) != EOF) {
+    while (fscanf(fptr, "%[^|]|%[^|]|%[^|]|%d|%f\n", 
+        data[n].judul, data[n].artis, data[n].genre, &data[n].tahun, &data[n].rating) != EOF) {
         n++;
     }
     fclose(fptr);
