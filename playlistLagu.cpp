@@ -69,7 +69,7 @@ void dariFile(char namaFile[]) {
     int tahun;
     float rating;
 
-    while (fscanf(fptr, "%[^|]|%[^|]|%[^|]|%d|%f\n", judul, artis, genre, &tahun, &rating) != EOF) {
+    while (fscanf(fptr, "%[^|]|%[^|]|%[^|]|%d|%f\n", judul, artis, genre, &tahun, &rating) == 5) {
 
         Lagu* baru = buatNode(judul, artis, genre, tahun, rating);
 
@@ -95,20 +95,19 @@ void tambahLagu(){
     cout << "===============================" << endl;
     cout << "Disimpan di file: "; cin >> namaFile;
     cout << "Jumlah lagu: "; cin >> jumlah;
-    cin.ignore();
+    dariFile(namaFile);
 
     for (int i = 0; i < jumlah; i++) {
         char judul[100], artis[100], genre[50];
         int tahun;
         float rating;
 
-        cout << "\nData ke-" << i + 1 << endl;
+        cout << "\nData ke-" << i + 1 << endl; cin.ignore();
         cout << "Judul Lagu : "; cin.getline(judul, 100);
         cout << "Artis      : "; cin.getline(artis, 100);
         cout << "Genre      : "; cin.getline(genre, 50);
         cout << "Tahun Rilis: "; cin >> tahun;
         cout << "Rating     : "; cin >> rating;
-        cin.ignore();
 
         Lagu* baru = buatNode(judul, artis, genre, tahun, rating);
 
@@ -255,14 +254,12 @@ void urutLagu(){
         return;
     }
 
-    akar = arr[0];
-    akar->kiri = NULL;
-
     for (int i = 0; i < count; i++) {
         arr[i]->kanan = (i + 1 < count) ? arr[i + 1] : NULL;
         arr[i]->kiri  = (i - 1 >= 0) ? arr[i - 1] : NULL;
     }
 
+    akar = arr[0];
     ekor = arr[count - 1];
     ekor->kanan = NULL;
 
