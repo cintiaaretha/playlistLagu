@@ -9,48 +9,127 @@ struct Lagu {
     char genre[50];
     int tahun;
     float rating;
+    Lagu* kanan;
+    Lagu* kiri;
 };
 
-Lagu data[100];
-int n = 0;
+Lagu* akar = NULL;
+Lagu* ekor = NULL;
+int totalLagu = 0;
 
-void tambahLagu(){
-    system ("cls");
-    FILE *fptr;
-    char namaFile[30];
+//FUNGSI BUAT NODE
+Lagu* buatNode(char judul[], char artis[], char genre[], int tahun, float rating) {
+    Lagu* baru = new Lagu();
+    strcpy(baru->judul, judul);
+    strcpy(baru->artis, artis);
+    strcpy(baru->genre, genre);
+    baru->tahun = tahun;
+    baru->rating = rating;
+    baru->kanan = NULL;
+    baru->kiri  = NULL;
+    return baru;
+}
 
-    cout << "TAMBAH LAGU" << endl;
-    cout << "===============================" << endl;
-    cout << "Disimpan di file: "; cin >> namaFile;
-
-    fptr = fopen(namaFile, "a");
-
-    if(fptr == NULL) {
+//SIMPAN KE FILE
+void simpanKeFile(char namaFile[]) {
+    FILE* fptr = fopen(namaFile, "w");
+    if (fptr == NULL) {
         cout << "File tidak bisa dibuka!" << endl;
         return;
     }
 
-    cout << "Jumlah lagu: "; cin >> n;
+    Lagu* current = akar;
+
+    while (current != NULL) {
+        fprintf(fptr, "%s|%s|%s|%d|%.2f\n",
+            current->judul, current->artis, current->genre,
+            current->tahun, current->rating);
+
+        current = current->kanan;
+    }
+
+    fclose(fptr);
+}
+
+//MUAT DARI FILE
+void dariFile(char namaFile[]) {
+    FILE* fptr = fopen(namaFile, "r");
+    if (fptr == NULL) return;
+
+    // Hapus linked list lama
+    while (akar != NULL) {
+        Lagu* temp = akar;
+        akar = akar->kanan;
+        delete temp;
+    }
+
+    akar = ekor = NULL;
+    totalLagu = 0;
+
+    char judul[100], artis[100], genre[50];
+    int tahun;
+    float rating;
+
+    while (fscanf(fptr, "%[^|]|%[^|]|%[^|]|%d|%f\n",
+        judul, artis, genre, &tahun, &rating) != EOF) {
+
+        Lagu* baru = buatNode(judul, artis, genre, tahun, rating);
+
+        if (akar == NULL) {
+            akar = ekor = baru;
+        } else {
+            ekor->kanan = baru;
+            baru->kiri  = ekor;
+            ekor = baru;
+        }
+
+        totalLagu++;
+    }
+
+    fclose(fptr);
+}
+
+//TAMBAH LAGU
+void tambahLagu(){
+    system ("cls");
+    char namaFile[30];
+    int jumlah;
+
+    cout << "TAMBAH LAGU" << endl;
+    cout << "===============================" << endl;
+    cout << "Disimpan di file: "; cin >> namaFile;
+    cout << "Jumlah lagu: "; cin >> jumlah;
     cin.ignore();
 
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < jumlah; i++) {
+        char judul[100], artis[100], genre[50];
+        int tahun;
+        float rating;
+
         cout << "\nData ke-" << i + 1 << endl;
+        cout << "Judul Lagu : "; cin.getline(judul, 100);
+        cout << "Artis      : "; cin.getline(artis, 100);
+        cout << "Genre      : "; cin.getline(genre, 50);
+        cout << "Tahun Rilis: "; cin >> tahun;
+        cout << "Rating     : "; cin >> rating;
 
-        cout << "Judul Lagu : "; cin.getline(data[i].judul, 100);
-        cout << "Artis      : "; cin.getline(data[i].artis, 100);
-        cout << "Genre      : "; cin.getline(data[i].genre, 50);
-        cout << "Tahun Rilis: "; cin >> data[i].tahun;
-        cout << "Rating     : "; cin >> data[i].rating;
+        Lagu* baru = buatNode(judul, artis, genre, tahun, rating);
 
-        fprintf(fptr, "%s|%s|%s|%d|%.2f\n", 
-            data[i].judul, data[i].artis, data[i].genre, data[i].tahun, data[i].rating
-        );
+        if (akar == NULL) {
+            akar = ekor = baru;
+        } else {
+            ekor->kanan = baru;
+            baru->kiri  = ekor;
+            ekor = baru;
+        }
+        totalLagu++;
     }
-    fclose(fptr);
+    simpanKeFile(namaFile);
     cout << "===============================" << endl;
     cout << "Data berhasil disimpan!" << endl;
 }
 
+//TAMPIL PLAYLIST
 void tampilPlaylist(){
     system ("cls");
     FILE *fptr;
@@ -61,82 +140,67 @@ void tampilPlaylist(){
     cout << "Data yang akan ditampilkan dari file: ";
     cin >> namaFile;
 
-    fptr = fopen(namaFile, "r");
+    dariFile(namaFile);
 
-    if (fptr == NULL){
-        cout << "File tidak ditemukan" << endl;
+    if (akar == NULL){
+        cout << "Playlist kosong..." << endl;
         return;
     }
 
-    n = 0;
-    while (fscanf(fptr, "%[^|]|%[^|]|%[^|]|%d|%f\n",
-        data[n]. judul, data[n].artis, data[n].genre, &data[n].tahun, &data[n].rating) !=EOF) {
-        n++;
-    } 
-    fclose(fptr);
+    Lagu* current = akar;
+    int nomor = 1;
 
-    if (n == 0) {
-        cout << "Playlist kosong!" << endl;
-        return;
+    while (current != NULL) {
+        cout << "\nData ke-" << nomor++ << endl;
+        cout << "===============================" << endl;
+        cout << "Judul Lagu : " << current->judul  << endl;
+        cout << "Artis      : " << current->artis  << endl;
+        cout << "Genre      : " << current->genre  << endl;
+        cout << "Tahun Rilis: " << current->tahun  << endl;
+        cout << "Rating     : " << current->rating << endl;
+        cout << "===============================" << endl;
+        current = current->kanan;
     }
-
-    for (int i = 0; i < n; i++){
-        cout << "\nData ke-" << i + 1 << endl;
-            cout << "===============================" << endl;
-            cout << "Judul Lagu : " << data[i].judul << endl;
-            cout << "Artis      : " << data[i].artis << endl;
-            cout << "Genre      : " << data[i].genre << endl;
-            cout << "Tahun Rilis: " << data[i].tahun << endl;
-            cout << "Rating     : " << data[i].rating << endl;
-            cout << "===============================" << endl;
-    }
-    cout << "Total Lagu: " << n << endl;
+    cout << "Total Lagu: " << totalLagu << endl;
 }
 
+//CARI LAGU
 void cariLagu(){
     system ("cls");
-    FILE *fptr;
     char cari[100];
-    bool ketemu = false;
     char namaFile[30];
 
     cout << "CARI LAGU" << endl;
     cout << "===============================" << endl;
     cout << "\nData yang akan dicari dari file: "; cin >> namaFile;
 
-    fptr = fopen(namaFile, "r");
-
-    if (fptr == NULL) {
-        cout << "File tidak ditemukan";
-        return;
-    }
-
-    n = 0;
-
-    while (fscanf(fptr, "%[^|]%[^|]%[^|]|%d|%f\n", 
-        data[n].judul, data[n].artis, data[n].genre, &data[n].tahun, &data[n].rating)!=EOF) {
-        n++;
-    }
-
-    fclose(fptr);
-
+    dariFile(namaFile);
     cin.ignore();
-    cout << "\nJudul Lagu yang dicari: ";  cin.getline(cari, 100);
 
-    for (int i = 0; i < n; i++) {
-        if (strcmp(data[i].judul, cari) == 0) {
-            cout << "\nData ditemukan" << endl;
+    cout << "Judul lagu yang dicari: ";
+    cin.getline(cari, 100);
+
+    Lagu* current = akar;
+    bool ketemu = false;
+
+    while (current != NULL) {
+
+        if (strcmp(current->judul, cari) == 0) {
+
+            cout << "\nData ditemukan!" << endl;
             cout << "===============================" << endl;
-            cout << "Judul Lagu : " << data[i].judul;
-            cout << "Artis      : " << data[i].artis;
-            cout << "Genre      : " << data[i].genre;
-            cout << "Tahun Rilis: " << data[i].tahun;
-            cout << "Rating     : " << data[i].rating;
+            cout << "Judul Lagu : " << current->judul  << endl;
+            cout << "Artis      : " << current->artis  << endl;
+            cout << "Genre      : " << current->genre  << endl;
+            cout << "Tahun Rilis: " << current->tahun  << endl;
+            cout << "Rating     : " << current->rating << endl;
             cout << "===============================" << endl;
 
             ketemu = true;
             break;
         }
+
+        current = current->kanan;
     }
     if (!ketemu) {
         cout << "Data tidak ditemukan..." << endl;
@@ -160,9 +224,12 @@ void urutLagu(){
         return;
     }
     
-    n = 0;
+    int n = 0;
+    char judul[100], artis[100], genre[50];
+    int tahun;
+    float rating; 
     while (fscanf(fptr, "%[^|]|%[^|]|%[^|]|%d|%f\n",
-        data[n].judul, data[n].artis, data[n].genre, &data[n].tahun, &data[n].rating) != EOF) {
+        judul, artis, genre, &tahun, &rating) != EOF) {
         n++;
     }
     fclose(fptr);
@@ -179,7 +246,7 @@ void urutLagu(){
     cin >> pilih;
 
     if (pilih == 1) {
-        for (int i = 0; i < n - 1; i++;) {
+        for (int i = 0; i < n - 1; i++) {
             for (int j = 0; j < n - i - 1; j++) {
                 if (strcmp(data[j].judul, data[j+1].judul) > 0) {
                     Lagu temp = data [j];
@@ -224,27 +291,52 @@ void urutLagu(){
     }
     fclose(fptr);
     cout << "Data berhasil disimpan ke file." << endl;
-}
+}}
 
+//UPDATE LAGU
 void updateLagu(){
     system ("cls");
-    FILE *fptr;
     char cari[100];
     char namaFile[30];
-    bool ketemu = false;
 
     cout << "UPDATE RATING LAGU" << endl;
     cout << "===============================" << endl;
     cout << "\nData yang akan dicari dari file: "; cin >> namaFile;
 
-    fptr = fopen(namaFile, "r");
+    dariFile(namaFile);
 
-    if (fptr == NULL) {
-        cout << "File tidak ditemukan";
+    cin.ignore();
+
+    cout << "Masukkan judul lagu: ";
+    cin.getline(cari, 100);
+
+    Lagu* current = akar;
+    bool ketemu = false;
+
+    while (current != NULL) {
+        if (strcmp(current->judul, cari) == 0) {
+            cout << "\nData ditemukan:" << endl;
+            cout << "Judul  : " << current->judul  << endl;
+            cout << "Rating : " << current->rating << endl;
+            cout << "\nMasukkan rating baru: ";
+            cin >> current->rating;
+            ketemu = true;
+            break;
+        }
+        current = current->kanan;
+    }
+
+    if (!ketemu) {
+        cout << "===============================" << endl;
+        cout << "Data tidak ditemukan." << endl;
         return;
     }
+    simpanKeFile(namaFile);
+    cout << "===============================" << endl;
+    cout << "Rating berhasil diupdate!" << endl;
 }
 
+//HAPUS LAGU
 void hapusLagu(){
     system("cls");
     FILE *fptr;
@@ -263,7 +355,7 @@ void hapusLagu(){
         cout << "File tidak ditemukan!" << endl;
     }
 
-    n = 0;
+    int n = 0;
     while (fscanf(fptr, "%[^|]|%[^|]|%[^|]|%d|%f\n",
         data[n].judul, data[n].artis, data[n].genre, &data[n].tahun, &data[n].rating) != EOF) {
         n++;
@@ -333,7 +425,7 @@ int main() {
         cout << endl;
 	
         switch (pilih) {
-            case 1:
+            case 1: 
                 tambahLagu();
                 break;
             case 2:

@@ -8,8 +8,13 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
+<<<<<<< HEAD
       "cwd": "e:/A UPN/Sem 2/Prak Algo/final project/playlistLagu",
       "program": "e:/A UPN/Sem 2/Prak Algo/final project/playlistLagu/build/Debug/outDebug",
+=======
+      "cwd": "c:/projek_prakalgo",
+      "program": "c:/projek_prakalgo/build/Debug/outDebug",
+>>>>>>> fe186a7045234ce8280b122ae396d822ea3a1734
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
