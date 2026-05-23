@@ -328,7 +328,7 @@ void hapusLagu(){
     char namaFile[30];
     char cari[100];
 
-    cout << "HAPUS LAGU" << endl;
+    cout << "            HAPUS LAGU" << endl;
     cout << "======================================" << endl;
     cout << "Data yang akan dihapus dari file: "; cin >> namaFile;
 
@@ -378,7 +378,7 @@ void hapusLagu(){
             cout << "Lagu berhasil dihapus!" << endl;
             ketemu = true;
             break;
-        }gi
+        }
         current = current->kanan;
     }
     if (!ketemu) {
