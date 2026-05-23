@@ -378,7 +378,7 @@ void hapusLagu(){
             cout << "Lagu berhasil dihapus!" << endl;
             ketemu = true;
             break;
-        }
+        }gi
         current = current->kanan;
     }
     if (!ketemu) {
