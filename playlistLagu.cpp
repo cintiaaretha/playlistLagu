@@ -91,8 +91,8 @@ void tambahLagu(){
     char namaFile[30];
     int jumlah;
 
-    cout << "TAMBAH LAGU" << endl;
-    cout << "===============================" << endl;
+    cout << "           TAMBAH LAGU" << endl;
+    cout << "======================================" << endl;
     cout << "Disimpan di file: "; cin >> namaFile;
     cout << "Jumlah lagu     : "; cin >> jumlah;
     cin.ignore();
@@ -122,7 +122,7 @@ void tambahLagu(){
         totalLagu++;
     }
     simpanKeFile(namaFile);
-    cout << "===============================" << endl;
+    cout << "======================================" << endl;
     cout << "Data berhasil disimpan!\n" << endl;
 }
 
@@ -131,8 +131,8 @@ void tampilPlaylist(){
     system ("cls");
     char namaFile[30];
 
-    cout << "TAMPILKAN PLAYLIST" << endl;
-    cout << "===============================" << endl;
+    cout << "         TAMPILKAN PLAYLIST" << endl;
+    cout << "======================================" << endl;
     cout << "Data yang akan ditampilkan dari file: ";
     cin >> namaFile;
 
@@ -148,13 +148,13 @@ void tampilPlaylist(){
 
     while (current != NULL) {
         cout << "\nData ke-" << nomor++ << endl;
-        cout << "===============================" << endl;
+        cout << "======================================" << endl;
         cout << "Judul Lagu : " << current->judul  << endl;
         cout << "Artis      : " << current->artis  << endl;
         cout << "Genre      : " << current->genre  << endl;
         cout << "Tahun Rilis: " << current->tahun  << endl;
         cout << "Rating     : " << current->rating << endl;
-        cout << "===============================" << endl;
+        cout << "======================================" << endl;
         current = current->kanan;
     }
     cout << "Total Lagu: " << totalLagu << endl;
@@ -166,8 +166,8 @@ void cariLagu(){
     char cari[100];
     char namaFile[30];
 
-    cout << "CARI LAGU" << endl;
-    cout << "===============================" << endl;
+    cout << "            CARI LAGU" << endl;
+    cout << "======================================" << endl;
     cout << "Data yang akan dicari dari file: "; cin >> namaFile;
 
     dariFile(namaFile);
@@ -181,13 +181,13 @@ void cariLagu(){
     while (current != NULL) {
         if (strcmp(current->judul, cari) == 0) {
             cout << "\nData ditemukan!" << endl;
-            cout << "===============================" << endl;
+            cout << "======================================" << endl;
             cout << "Judul Lagu : " << current->judul  << endl;
             cout << "Artis      : " << current->artis  << endl;
             cout << "Genre      : " << current->genre  << endl;
             cout << "Tahun Rilis: " << current->tahun  << endl;
             cout << "Rating     : " << current->rating << endl;
-            cout << "===============================" << endl;
+            cout << "======================================" << endl;
             ketemu = true;
             break;
         }
@@ -202,8 +202,8 @@ void urutLagu(){
     system("cls");
     char namaFile[30];
 
-    cout << "URUTKAN LAGU" << endl;
-    cout << "===============================" << endl;
+    cout << "          URUTKAN LAGU" << endl;
+    cout << "======================================" << endl;
     cout << "Data yang akan diurutkan dari file: "; 
     cin >> namaFile;
 
@@ -251,7 +251,7 @@ void urutLagu(){
         cout << "\nData diurutkan: Rating Tertinggi -> Terendah" << endl;
 
     } else {
-        cout << "Pilihan tidak valid!" << endl;
+        cout << "Pilihan tidak valid!\n" << endl;
         return;
     }
 
@@ -268,13 +268,13 @@ void urutLagu(){
 
     for (int i = 0; i < count; i++) {
         cout << "\nData ke-" << i + 1 << endl;
-        cout << "===============================" << endl;
+        cout << "======================================" << endl;
         cout << "Judul Lagu : " << arr[i]->judul  << endl;
         cout << "Artis      : " << arr[i]->artis  << endl;
         cout << "Genre      : " << arr[i]->genre  << endl;
         cout << "Tahun Rilis: " << arr[i]->tahun  << endl;
         cout << "Rating     : " << arr[i]->rating << endl;
-        cout << "===============================" << endl;
+        cout << "======================================" << endl;
     }
 
     simpanKeFile(namaFile);
@@ -288,8 +288,8 @@ void updateLagu(){
     char cari[100];
     char namaFile[30];
 
-    cout << "UPDATE RATING LAGU" << endl;
-    cout << "===============================" << endl;
+    cout << "       UPDATE RATING LAGU" << endl;
+    cout << "======================================" << endl;
     cout << "Data yang akan dicari dari file: "; cin >> namaFile;
 
     dariFile(namaFile);
@@ -315,13 +315,14 @@ void updateLagu(){
     }
 
     if (!ketemu) {
-        cout << "===============================" << endl;
+        cout << "======================================" << endl;
         cout << "Data tidak ditemukan.\n" << endl;
         return;
     }
     simpanKeFile(namaFile);
-    cout << "===============================" << endl;
     cout << "Rating berhasil diupdate!" << endl;
+    cout << "======================================" << endl;
+
 }
 
 //HAPUS LAGU
@@ -331,13 +332,13 @@ void hapusLagu(){
     char cari[100];
 
     cout << "HAPUS LAGU" << endl;
-    cout << "===============================" << endl; 
+    cout << "======================================" << endl;
     cout << "Data yang akan dihapus dari file: "; cin >> namaFile;
 
     dariFile(namaFile);
 
     if (akar == NULL) {
-        cout << "Playlist kosong!" << endl;
+        cout << "Playlist kosong!\n" << endl;
         return;
     }
 
@@ -352,13 +353,13 @@ void hapusLagu(){
     while (current != NULL) {
         if (strcmp(current->judul, cari) == 0) {
             cout << "\nData ditemukan!" << endl;
-            cout << "===============================" << endl;
+            cout << "======================================" << endl;
             cout << "Judul Lagu : " << current->judul  << endl;
             cout << "Artis      : " << current->artis  << endl;
             cout << "Genre      : " << current->genre  << endl;
             cout << "Tahun Rilis: " << current->tahun  << endl;
             cout << "Rating     : " << current->rating << endl;
-            cout << "===============================" << endl;
+            cout << "======================================" << endl;
 
             if (current->kiri != NULL) {
                 current->kiri->kanan = current->kanan;
@@ -384,7 +385,7 @@ void hapusLagu(){
         current = current->kanan;
     }
     if (!ketemu) {
-        cout << "===============================" << endl;
+        cout << "======================================" << endl;
         cout << "Data tidak ditemukan.\n" << endl;
     }
 }
@@ -395,8 +396,8 @@ int main() {
     char lagi;
 	
 	do {
-        cout << "MENU" << endl;
-        cout << "===============================" << endl;
+        cout << "               MENU" << endl;
+        cout << "======================================" << endl;
         cout << "1. TAMBAH LAGU" << endl;
         cout << "2. TAMPILKAN PLAYLIST" << endl;
         cout << "3. CARI LAGU" << endl;
@@ -404,7 +405,7 @@ int main() {
         cout << "5. UPDATE LAGU" << endl;
         cout << "6. HAPUS LAGU" << endl;
         cout << "7. EXIT" << endl;
-        cout << "===============================" << endl;
+        cout << "======================================" << endl;
         cout << "Pilih: "; cin >> pilih;
         cout << endl;
 	
@@ -433,10 +434,10 @@ int main() {
                 cout << "======================================" << endl;
                 return 0;
             default:
-                cout << "Pilihan menu tidak ada..." << endl;
+                cout << "Pilihan menu tidak ada." << endl;
         }
 
-        cout << "Kembali ke Menu Utama (y/t)?"; cin >> lagi;
+        cout << "Kembali ke Menu Utama (y/t)? "; cin >> lagi;
         cin.ignore(); 
         system ("cls");
 
