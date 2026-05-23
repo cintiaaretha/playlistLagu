@@ -94,7 +94,7 @@ void tambahLagu(){
     cout << "TAMBAH LAGU" << endl;
     cout << "===============================" << endl;
     cout << "Disimpan di file: "; cin >> namaFile;
-    cout << "Jumlah lagu: "; cin >> jumlah;
+    cout << "Jumlah lagu     : "; cin >> jumlah;
     cin.ignore();
 
     for (int i = 0; i < jumlah; i++) {
@@ -123,7 +123,7 @@ void tambahLagu(){
     }
     simpanKeFile(namaFile);
     cout << "===============================" << endl;
-    cout << "Data berhasil disimpan!" << endl;
+    cout << "Data berhasil disimpan!\n" << endl;
 }
 
 //TAMPIL PLAYLIST
@@ -139,7 +139,7 @@ void tampilPlaylist(){
     dariFile(namaFile);
 
     if (akar == NULL){
-        cout << "Playlist kosong..." << endl;
+        cout << "Playlist kosong.\n" << endl;
         return;
     }
 
@@ -168,7 +168,7 @@ void cariLagu(){
 
     cout << "CARI LAGU" << endl;
     cout << "===============================" << endl;
-    cout << "\nData yang akan dicari dari file: "; cin >> namaFile;
+    cout << "Data yang akan dicari dari file: "; cin >> namaFile;
 
     dariFile(namaFile);
     cin.ignore();
@@ -204,7 +204,7 @@ void urutLagu(){
 
     cout << "URUTKAN LAGU" << endl;
     cout << "===============================" << endl;
-    cout << "\nData yang akan diurutkan dari file: "; 
+    cout << "Data yang akan diurutkan dari file: "; 
     cin >> namaFile;
 
     dariFile(namaFile);
@@ -290,7 +290,7 @@ void updateLagu(){
 
     cout << "UPDATE RATING LAGU" << endl;
     cout << "===============================" << endl;
-    cout << "\nData yang akan dicari dari file: "; cin >> namaFile;
+    cout << "Data yang akan dicari dari file: "; cin >> namaFile;
 
     dariFile(namaFile);
 
@@ -316,7 +316,7 @@ void updateLagu(){
 
     if (!ketemu) {
         cout << "===============================" << endl;
-        cout << "Data tidak ditemukan." << endl;
+        cout << "Data tidak ditemukan.\n" << endl;
         return;
     }
     simpanKeFile(namaFile);
@@ -332,7 +332,7 @@ void hapusLagu(){
 
     cout << "HAPUS LAGU" << endl;
     cout << "===============================" << endl; 
-    cout << "\nData yang akan dihapus dari file: "; cin >> namaFile;
+    cout << "Data yang akan dihapus dari file: "; cin >> namaFile;
 
     dariFile(namaFile);
 
