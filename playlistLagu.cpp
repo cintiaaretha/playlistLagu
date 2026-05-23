@@ -194,7 +194,7 @@ void cariLagu(){
         current = current->kanan;
     }
     if (!ketemu) {
-        cout << "Data tidak ditemukan..." << endl;
+        cout << "Data tidak ditemukan.\n" << endl;
     }
 }
 
@@ -204,13 +204,13 @@ void urutLagu(){
 
     cout << "URUTKAN LAGU" << endl;
     cout << "===============================" << endl;
-    cout << "Data yang akan diurutkan dari file: "; 
+    cout << "\nData yang akan diurutkan dari file: "; 
     cin >> namaFile;
 
     dariFile(namaFile);
 
     if (akar == NULL) {
-        cout << "Playlist kosong!" << endl;
+        cout << "Playlist kosong!\n" << endl;
         return;
     }
 
@@ -332,7 +332,7 @@ void hapusLagu(){
 
     cout << "HAPUS LAGU" << endl;
     cout << "===============================" << endl; 
-    cout << "Data yang akan dihapus dari file: "; cin >> namaFile;
+    cout << "\nData yang akan dihapus dari file: "; cin >> namaFile;
 
     dariFile(namaFile);
 
@@ -343,7 +343,8 @@ void hapusLagu(){
 
     cin.ignore();
 
-    cout << "Judul lagu yang ingin dihapus: "; cin.getline(cari, 100);
+    cout << "Judul lagu yang ingin dihapus: ";
+    cin.getline(cari, 100);
 
     Lagu* current = akar;
     bool ketemu = false;
@@ -384,7 +385,7 @@ void hapusLagu(){
     }
     if (!ketemu) {
         cout << "===============================" << endl;
-        cout << "Data tidak ditemukan." << endl;
+        cout << "Data tidak ditemukan.\n" << endl;
     }
 }
 
